@@ -1,5 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 public class LevelMoveStep : MonoBehaviour {
     public GameObject DiePanel;
     public LevelState levelState = LevelState.ACTIVE;
@@ -9,7 +10,7 @@ public class LevelMoveStep : MonoBehaviour {
     private void Start () {
         levelManager = GetComponent<LevelManager> ();
         lineList = GetAllChild (transform);
-
+        createLevel ();
     }
 
     List<Transform> GetAllChild (Transform obj) {
@@ -24,14 +25,14 @@ public class LevelMoveStep : MonoBehaviour {
     void createLevel () {
         Transform last = lineList[lineList.Count - 1];
         List<Transform> list = GetAllChild (last);
-        Transform enemy = levelManager.OnCreateEnemy ();
+        Transform enemy = levelManager.CreateEnemy ();
         int index = Random.Range (0, last.childCount);
         enemy.position = last.GetChild (index).position;
         enemy.parent = last.GetChild (index);
 
         for (int i = 0; i < list.Count; i++) {
             if (i != index) {
-                Transform obj = levelManager.ItemFactory ();
+                Transform obj = levelManager.PaneFactory ();
                 if (obj != null) {
                     obj.position = list[i].position;
                     obj.parent = list[i];
@@ -69,7 +70,7 @@ public class LevelMoveStep : MonoBehaviour {
     }
 
     bool death () {
-        Transform[] list = lineList[0].GetComponent<Transform> ();
+        Transform[] list = lineList[0].GetComponentsInChildren<Transform> ();
         for (int i = 0; i < list.Length; i++) {
             if (list[i].tag == "Enemy") {
                 return true;

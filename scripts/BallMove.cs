@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class BallMove : MonoBehaviour {
     float timer;
     public BallState state = BallState.READY;
@@ -9,7 +9,7 @@ public class BallMove : MonoBehaviour {
             GetComponent<Rigidbody2D> ().gravityScale = 1;
             if (other.gameObject.tag == "Enemy") {
                 //获取敌人数字
-                Text enemyNumber = collision.transform.GetChild (0).GetComponent<Text> ();
+                Text enemyNumber = other.transform.GetChild (0).GetComponent<Text> ();
                 //获取当前分数
                 Text Score = GameObject.Find ("ScoreText").GetComponent<Text> ();
                 if (tag == "BigBall") //如果自己是大球
