@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 1
+  ptManager: {fileID: 8158493721909509800, guid: 03f2328921fdd5c4aac601afda5a5ce4,
+    type: 3}

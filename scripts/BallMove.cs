@@ -3,6 +3,7 @@ using UnityEngine.UI;
 public class BallMove : MonoBehaviour {
     float timer;
     public BallState state = BallState.READY;
+    public GameObject ptManager;
 
     private void OnCollisionEnter2D (Collision2D other) {
         if (state == BallState.BATTLE) {
@@ -25,6 +26,8 @@ public class BallMove : MonoBehaviour {
                     //当前分数+1
                     Score.text = ((System.Convert.ToInt32 (Score.text)) + 1).ToString ();
                 }
+
+                ptManager.GetComponent<PtManager> ().OnCreatePt (this.transform);
             }
         }
     }
